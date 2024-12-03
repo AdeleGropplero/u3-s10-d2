@@ -29,7 +29,7 @@ const CommentArea = (props) => {
       })
       .then((reviews) => {
         /* this.setState({ reviews }); */
-        setReviews({ reviews });
+        setReviews(reviews);
       });
   };
 
@@ -48,7 +48,7 @@ const CommentArea = (props) => {
   } */
 
   useEffect(() => {
-    console.log("componentDidMount()");
+    console.log("Corrispettivo di componentDidMount()");
 
     fetchComments();
   }, []); /* Perche mi da questo errore? */
