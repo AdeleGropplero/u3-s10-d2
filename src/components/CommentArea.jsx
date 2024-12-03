@@ -1,15 +1,18 @@
-import { Component } from "react";
+/* import { Component } from "react"; */
 import CommentList from "./Commentlist";
 import AddComment from "./AddComment";
+import { useEffect, useState } from "react";
 
-class CommentArea extends Component {
-  state = {
+const CommentArea = (props) => {
+  /*   state = {
     reviews: []
-  };
-  fetchComments = () => {
+  }; */
+
+  const [reviews, setReviews] = useState([]);
+
+  const fetchComments = () => {
     fetch(
-      "https://striveschool-api.herokuapp.com/api/comments/" +
-        this.props.selected,
+      "https://striveschool-api.herokuapp.com/api/comments/" + props.selected,
       {
         headers: {
           Authorization:
@@ -25,13 +28,14 @@ class CommentArea extends Component {
         }
       })
       .then((reviews) => {
-        this.setState({ reviews });
+        /* this.setState({ reviews }); */
+        setReviews({ reviews });
       });
   };
 
-  componentDidMount() {
+  /*   componentDidMount() {
     console.log("Mount");
-    this.fetchComments();
+    fetchComments();
   }
 
   componentDidUpdate(prevProps) {
@@ -41,16 +45,20 @@ class CommentArea extends Component {
     } else {
       console.log("props uguali, i commenti restano gli stessi");
     }
-  }
+  } */
 
-  render() {
-    return (
-      <>
-        <CommentList reviews={this.state.reviews} />
-        <AddComment id={this.props.selected} />
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    console.log("componentDidMount()");
+
+    fetchComments();
+  }, []); /* Perche mi da questo errore? */
+
+  return (
+    <>
+      <CommentList reviews={reviews} />
+      <AddComment id={props.selected} />
+    </>
+  );
+};
 
 export default CommentArea;
